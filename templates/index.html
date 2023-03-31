@@ -17,7 +17,8 @@
 
         <ul class="flex items-center gap-2 text-sm font-medium text-gray-500">
             <li>
-                <a class="inline-flex items-center gap-2 rounded-lg px-3 py-2" href="https://github.com/pankildoshi/Face-Recognition" target="_blank">
+                <a class="inline-flex items-center gap-2 rounded-lg px-3 py-2"
+                    href="https://github.com/pankildoshi/Face-Recognition" target="_blank">
                     Github
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                         class="h-4 w-4">
@@ -54,7 +55,7 @@
                             the zip of dataset on which you want to perform face recognition</label>
                         <input
                             class="p-2 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer"
-                            name="zipfile" type="file">
+                            name="zipfile" type="file" required>
                         <input type="submit" value="Upload Zip"
                             class="my-2 inline-block rounded-lg border border-gray-300 bg-white-600 px-12 py-2 text-sm font-medium text-black hover:text-white hover:bg-black">
                     </form>
@@ -103,7 +104,7 @@
                             run face recognition</label>
                         <input
                             class="p-2 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer"
-                            name="image" type="file">
+                            name="image" type="file" required>
                         <input type="submit" value="Upload Image"
                             class="my-2 inline-block rounded-lg border border-gray-300 bg-white-600 px-12 py-2 text-sm font-medium text-black hover:text-white hover:bg-black">
                     </form>
@@ -168,11 +169,11 @@
         }
 
         startBtn.onclick = function () {
-            imageFeed.src = "";
             videoFeed.style.display = 'block';
             videoFeed.src = "{{ url_for('video_feed') }}";
             startBtn.style.display = 'none';
             stopBtn.style.display = 'block';
+            imageFeed.src = "";
         };
 
         stopBtn.onclick = function () {
