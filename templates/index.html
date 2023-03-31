@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Recognition Application</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <nav aria-label="Site Nav" class="border flex w-full items-center justify-between p-4">
+        <a href="/" class="px-4 h-10 inline-flex items-center rounded-lg bg-gray-100">
+            <span class="font-bold">Face Recognition App</span>
+        </a>
+
+        <ul class="flex items-center gap-2 text-sm font-medium text-gray-500">
+            <li>
+                <a class="inline-flex items-center gap-2 rounded-lg px-3 py-2" href="" target="_blank">
+                    Github
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="h-4 w-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+
+    <div class="flex flex-col md:flex-row">
+        <div id="accordion-flush" data-accordion="collapse"
+            class="border border-gray-500 mx-2 my-4 rounded-lg py-8 px-6 w-full md:w-2/5 bg-white text-gray-900">
+            <h2 id="accordion-flush-heading-1">
+                <button type="button"
+                    class="flex items-center justify-between w-full py-5 font-medium text-left text-gray-9  00 border-b border-gray-200"
+                    id="accordion1">
+                    <span class="text-xl font-bold leading-normal">1. Upload your dataset</span>
+                    <svg id="arrowaccordion1" class="transform transition-transform duration-500 w-6 h-6 shrink-0"
+                        fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </h2>
+            <div id="accordion-flush-body-1" class="p-2 transition-all hidden">
+                <div class="py-5 border-b border-gray-200 ">
+                    <p class="my-2"></p>
+                    <form method="POST" enctype="multipart/form-data" action="{{ url_for('upload_zip') }}">
+                        <label class="block mb-2 text-md font-medium text-gray-900">Select
+                            the zip of dataset on which you want to perform face recognition</label>
+                        <input
+                            class="p-2 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer"
+                            name="zipfile" type="file">
+                        <input type="submit" value="Upload Zip"
+                            class="my-2 inline-block rounded-lg border border-gray-300 bg-white-600 px-12 py-2 text-sm font-medium text-black hover:text-white hover:bg-black">
+                    </form>
+                </div>
+            </div>
+            <h2 id="accordion-flush-heading-2">
+                <button type="button"
+                    class="flex items-center justify-between w-full py-5 font-medium text-left text-gray-9  00 border-b border-gray-200"
+                    id="accordion2">
+                    <span class="text-xl font-bold leading-normal">2. Train model on the given dataset</span>
+                    <svg id="arrowaccordion2" class="transform transition-transform duration-500 w-6 h-6 shrink-0"
+                        fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </h2>
+            <div id="accordion-flush-body-2" class="p-2 transition-all hidden">
+                <div class="py-5 border-b border-gray-200">
+                    <form method="POST" action="{{ url_for('train_model') }}">
+                        <label class="block mb-2 text-md font-medium text-gray-900">Train your model on the
+                            dataset</label>
+                        <input type="submit" value="Train Model"
+                            class="my-2 inline-block rounded-lg border border-gray-300 bg-white-600 px-12 py-2 text-sm font-medium text-black hover:text-white hover:bg-black">
+                    </form>
+                </div>
+            </div>
+            <h2 id="accordion-flush-heading-3">
+                <button type="button"
+                    class="flex items-center justify-between w-full py-5 font-medium text-left text-gray-9  00 border-b border-gray-200"
+                    id="accordion3">
+                    <span class="text-xl font-bold leading-normal">3. Make predictions</span>
+                    <svg id="arrowaccordion3" class="transform transition-transform duration-500 w-6 h-6 shrink-0"
+                        fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </h2>
+            <div id="accordion-flush-body-3" class="p-2 transition-all hidden">
+                <div class="py-5 border-b border-gray-200 ">
+                    <form method="POST" enctype="multipart/form-data" action="{{ url_for('upload_image') }}">
+                        <label class="block mb-2 text-md font-medium text-gray-900" for="file_input">Upload an image to
+                            run face recognition</label>
+                        <input
+                            class="p-2 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer"
+                            name="image" type="file">
+                        <input type="submit" value="Upload Image"
+                            class="my-2 inline-block rounded-lg border border-gray-300 bg-white-600 px-12 py-2 text-sm font-medium text-black hover:text-white hover:bg-black">
+                    </form>
+
+                    <button id="clearBtn"
+                        class="my-2 inline-block rounded-lg border border-gray-300 bg-white-600 px-12 py-2 text-sm font-medium text-black hover:text-white hover:bg-black">Clear
+                        Image</button>
+
+                    <div class="inline-flex relative items-center justify-center w-full">
+                        <hr class="w-64 h-px my-8 bg-gray-200 border-0">
+                        <span
+                            class="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2">or</span>
+                    </div>
+
+                    <label class="block mb-2 text-md font-medium text-gray-900" for="file_input">Run the face
+                        recognition on the video</label>
+                    <button id="startBtn"
+                        class="my-2 inline-block rounded-lg border border-gray-300 bg-white-600 px-12 py-2 text-sm font-medium text-black hover:text-white hover:bg-black">Start
+                        Capturing</button>
+                    <button id="stopBtn" style="display:none"
+                        class="my-2 inline-block rounded-lg border border-gray-300 bg-black px-12 py-2 text-sm font-medium text-white hover:text-black hover:bg-white">Stop
+                        Capturing</button>
+
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="border border-gray-500 bg-black mx-2 my-4 rounded-lg flex flex-col justify-start py-4 px-2 w-full md:w-3/5">
+            <p class="text-white text-lg font-semibold">Output</p>
+            <p class="text-white text-base font-semibold">
+                {% if uploaded %}
+                <span class="text-lg font-semibold">&gt; </span>{{uploaded}}.
+                {% endif %}
+            </p>
+
+            <p class="text-white text-base font-semibold">
+                {% if trained %}
+                <span class="text-lg font-semibold">&gt; </span>{{trained}}.
+                {% endif %}
+            </p>
+
+            {% if image %}
+            <img src="data:image/png;base64,{{ image }}" id="imageFeed" />
+            {% endif %}
+
+            <img src="" id="videoFeed" />
+        </div>
+    </div>
+
+    <script>
+        var videoFeed = document.getElementById('videoFeed');
+        var imageFeed = document.getElementById('imageFeed');
+
+        var startBtn = document.getElementById('startBtn');
+        var stopBtn = document.getElementById('stopBtn');
+        var clearBtn = document.getElementById('clearBtn');
+
+        clearBtn.onclick = function () {
+            imageFeed.src = "";
+            result.style.display = "none";
+        }
+
+        startBtn.onclick = function () {
+            imageFeed.src = "";
+            videoFeed.style.display = 'block';
+            videoFeed.src = "{{ url_for('video_feed') }}";
+            startBtn.style.display = 'none';
+            stopBtn.style.display = 'block';
+        };
+
+        stopBtn.onclick = function () {
+            videoFeed.style.display = 'none';
+            videoFeed.src = "";
+            startBtn.style.display = 'block';
+            stopBtn.style.display = 'none';
+        };
+
+        var btnaccordion1 = document.getElementById('accordion1')
+        var btnaccordion2 = document.getElementById('accordion2')
+        var btnaccordion3 = document.getElementById('accordion3')
+
+        btnaccordion1.addEventListener('click', () => {
+            document.getElementById('accordion-flush-body-1').classList.toggle('hidden')
+            document.getElementById('arrowaccordion1').classList.toggle('rotate-180')
+        })
+        btnaccordion2.addEventListener('click', () => {
+            document.getElementById('accordion-flush-body-2').classList.toggle('hidden')
+            document.getElementById('arrowaccordion2').classList.toggle('rotate-180')
+        })
+        btnaccordion3.addEventListener('click', () => {
+            document.getElementById('accordion-flush-body-3').classList.toggle('hidden')
+            document.getElementById('arrowaccordion3').classList.toggle('rotate-180')
+        })
+
+    </script>
+</body>
+
+</html>
